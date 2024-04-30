@@ -33,14 +33,16 @@
 			<Birthday />
 		</div>
 
-		<div class="flex w-full flex-col gap-1.5">
-			<Label for="yearLevel">Year Level</Label>
-			<Input type="text" id="yearLevel" placeholder="Enter your year level" />
-		</div>
+		<div class="grid grid-cols-1 gap-[20px] lg:grid-cols-2">
+			<div class="flex w-full flex-col gap-1.5">
+				<Label for="yearLevel">Year Level</Label>
+				<Input type="text" id="yearLevel" placeholder="Enter your year level" />
+			</div>
 
-		<div class="flex w-full flex-col gap-1.5">
-			<Label for="section">Section</Label>
-			<Input type="text" id="section" placeholder="Enter your section" />
+			<div class="flex w-full flex-col gap-1.5">
+				<Label for="section">Section</Label>
+				<Input type="text" id="section" placeholder="Enter your section" />
+			</div>
 		</div>
 
 		<div class="flex w-full flex-col gap-1.5">
