@@ -5,17 +5,22 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { MoveLeft, Check } from 'lucide-svelte';
+	import * as Avatar from '$lib/components/ui/avatar/index.js';
 
 	const checkAnswer = () => {
 		let currentSearch = Number($page.url.search.slice(8)) + 1;
-
 		if (questionArray.length + 1 === currentSearch) return console.log('done');
 
 		goto(`/student?search=${currentSearch++}`);
 	};
+
+	const navigateBack = () => {
+		let currentSearch = Number($page.url.search.slice(8));
+		goto(`/student?search=${currentSearch - 1}`);
+	};
 </script>
 
-<Card.Root>
+<Card.Root class="">
 	<Card.Header>
 		<Card.Title class="text-[1rem] sm:text-[1.5rem] md:text-[2rem]">
 			Do you have <b class="text-red-500 underline"
@@ -23,16 +28,34 @@
 			> ?
 		</Card.Title>
 
-		<Card.Description class="text-[1rem] sm:text-[1.2rem]">
+		<Card.Description class="grid grid-cols-1 gap-[2rem] text-[1rem] sm:text-[1.2rem]">
 			{questionArray[Number($page.url.search.slice(8)) - 1].description}
+			<Avatar.Root class="h-[400px] w-full rounded-lg">
+				<Avatar.Image
+					src={questionArray[Number($page.url.search.slice(8)) - 1].photo_link}
+					alt="@hiv"
+				/>
+				<Avatar.Fallback>hiv photo</Avatar.Fallback>
+			</Avatar.Root>
 		</Card.Description>
 	</Card.Header>
 
-	<Card.Footer class="flex justify-between gap-[10px]">
-		<Button class="flex items-center gap-[10px]"><MoveLeft /> Prev</Button>
-		<div class="flex items-center gap-[10px]">
-			<Button class="flex items-center gap-[10px]" on:click={checkAnswer}><Check /> Yes</Button>
-			<Button class="flex items-center gap-[10px]" on:click={checkAnswer}><Check /> No</Button>
+	<Card.Footer class="flex flex-wrap justify-between gap-[10px]">
+		{#if Number($page.url.search.slice(8)) - 1 > 0}
+			<Button class="flex w-full items-center gap-[10px] md:max-w-fit" on:click={navigateBack}
+				><MoveLeft /> Prev</Button
+			>
+		{:else}
+			<div class=""></div>
+		{/if}
+
+		<div class="flex w-full items-center gap-[10px] md:max-w-fit">
+			<Button class="flex w-full items-center gap-[10px]" on:click={checkAnswer}
+				><Check /> Yes</Button
+			>
+			<Button class="flex w-full items-center gap-[10px]" on:click={checkAnswer}
+				><Check /> No</Button
+			>
 		</div>
 	</Card.Footer>
 </Card.Root>

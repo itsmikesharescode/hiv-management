@@ -9,8 +9,8 @@
 	class="student fixed bottom-0 left-0 right-0 top-0 -z-10 h-full w-full"
 />
 
-<div class="z-20 flex min-h-screen items-center justify-center p-[2rem]">
-	<div class="w-[900px]">
+<div class="z-20 flex min-h-screen items-center justify-center">
+	<div class="w-full p-[2rem] md:w-[900px]">
 		<Generate />
 	</div>
 </div>
