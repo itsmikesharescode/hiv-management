@@ -16,6 +16,7 @@
 	let loginLoader = false;
 
 	const loginActionNews: SubmitFunction = () => {
+		loginLoader = true;
 		return async ({ result, update }) => {
 			const {
 				status,
@@ -34,6 +35,7 @@
 					break;
 
 				case 401:
+					formErrors = null;
 					toast.error('Log in', { description: msg });
 					loginLoader = false;
 					break;
@@ -60,16 +62,39 @@
 		</div>
 		<div class="flex w-full flex-col gap-1.5">
 			<Label for="email">Email</Label>
-			<Input name="email" type="email" id="email" placeholder="Enter your email" />
-			<p>Email required</p>
+			<Input
+				disabled={loginLoader}
+				name="email"
+				type="email"
+				id="email"
+				placeholder="Enter your email"
+			/>
+			{#each formErrors?.email ?? [] as errorMsg}
+				<p class="text-sm text-red-500">{errorMsg}</p>
+			{/each}
 		</div>
 
 		<div class="flex w-full flex-col gap-1.5">
 			<Label for="password">Password</Label>
-			<Input name="password" type="password" id="password" placeholder="Enter your password" />
+			<Input
+				disabled={loginLoader}
+				name="password"
+				type="password"
+				id="password"
+				placeholder="Enter your password"
+			/>
+			{#each formErrors?.password ?? [] as errorMsg}
+				<p class="text-sm text-red-500">{errorMsg}</p>
+			{/each}
 		</div>
 
-		<Button type="submit">Log in</Button>
+		<Button disabled={loginLoader} type="submit">
+			{#if loginLoader}
+				Logging in
+			{:else}
+				Log in
+			{/if}
+		</Button>
 	</form>
 
 	<div class="mx-auto mt-[30px] max-w-fit rounded-lg bg-white dark:bg-black">
