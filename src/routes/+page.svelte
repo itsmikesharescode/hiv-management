@@ -6,8 +6,6 @@
 	import Login from './(static)/Login.svelte';
 	import Register from './(static)/Register.svelte';
 	import ResetPass from './(static)/ResetPass.svelte';
-
-	$: console.log($page.url.search);
 </script>
 
 <div class=" grid min-h-screen grid-cols-1 md:grid-cols-2">
