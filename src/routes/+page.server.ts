@@ -1,9 +1,17 @@
 import { loginSchema, registerSchema, resetPassSchema } from "$lib/schema";
 import type { ZodError } from "zod";
 import type { Actions, PageServerLoad } from "./$types";
-import { fail } from "@sveltejs/kit";
+import { fail, redirect } from "@sveltejs/kit";
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ locals: { safeGetSession } }) => {
+    const { user } = await safeGetSession();
+
+    if (user) {
+        const { role } = user;
+        if (role === "authenticated") return redirect(302, "/student?search=1");
+        else if (role === "service_role") return redirect(302, "/admin");
+    }
+
 
 };
 
@@ -82,3 +90,4 @@ export const actions: Actions = {
         }
     }
 };
+

@@ -1,17 +1,18 @@
 <script lang="ts">
 	import front_image_hiv from '$lib/assets/front_image_hiv.png';
-	import front_image_hiv2 from '$lib/assets/front_image_hiv2.png';
 	import * as Avatar from '$lib/components/ui/avatar/index.js';
 	import { page } from '$app/stores';
 	import Login from './(static)/Login.svelte';
 	import Register from './(static)/Register.svelte';
 	import ResetPass from './(static)/ResetPass.svelte';
+	import Nav from './(static)/Nav.svelte';
 </script>
 
-<div class=" grid min-h-screen grid-cols-1 md:grid-cols-2">
+<Nav userState={null} />
+<div class=" relative grid min-h-screen grid-cols-1 md:grid-cols-2">
 	<div class="hidden flex-col bg-black p-[2rem] md:flex">
 		<h3 class="scroll-m-20 text-2xl font-semibold tracking-tight text-white">
-			HIV AWARENESS DATABASE MANAGEMENT SYSTEM
+			Human Immunodeficiency Virus
 		</h3>
 		<div class="grid-rows-[1fr,1fr ] mt-[5rem] gap-[10px] md:grid">
 			<div class="">
