@@ -1,6 +1,5 @@
 <script lang="ts">
 	import front_image_hiv from '$lib/assets/front_image_hiv.png';
-	import front_image_hiv2 from '$lib/assets/front_image_hiv2.png';
 	import * as Avatar from '$lib/components/ui/avatar/index.js';
 	import { page } from '$app/stores';
 	import Login from './(static)/Login.svelte';

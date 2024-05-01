@@ -20,7 +20,7 @@
 		dataOfYes = dataOfYes;
 		console.log(dataOfYes);
 		contains = 'yes';
-		goto(`/student?search=${currentSearch++}`);
+		goto(`/student?search=${currentSearch++}`, { noScroll: true });
 	};
 
 	const noAnswer = () => {
@@ -30,7 +30,7 @@
 		dataOfNo = dataOfNo;
 		console.log(dataOfNo);
 		contains = 'no';
-		goto(`/student?search=${currentSearch++}`);
+		goto(`/student?search=${currentSearch++}`, { noScroll: true });
 	};
 
 	const navigateBack = () => {
@@ -46,7 +46,7 @@
 			console.log(dataOfNo);
 		}
 
-		goto(`/student?search=${currentSearch - 1}`);
+		goto(`/student?search=${currentSearch - 1}`, { noScroll: true });
 	};
 </script>
 
