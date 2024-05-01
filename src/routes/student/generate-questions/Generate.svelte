@@ -20,20 +20,20 @@
 		dataOfYes = dataOfYes;
 		console.log(dataOfYes);
 		contains = 'yes';
-		goto(`/student?search=${currentSearch++}`, { noScroll: true });
+		await goto(`/student?search=${currentSearch++}`, { noScroll: true });
 	};
 
-	const noAnswer = () => {
+	const noAnswer = async () => {
 		if (questionArray.length + 1 === currentSearch) return console.log('done');
 
 		dataOfNo.push(questionArray[currentSearch - 2]);
 		dataOfNo = dataOfNo;
 		console.log(dataOfNo);
 		contains = 'no';
-		goto(`/student?search=${currentSearch++}`, { noScroll: true });
+		await goto(`/student?search=${currentSearch++}`, { noScroll: true });
 	};
 
-	const navigateBack = () => {
+	const navigateBack = async () => {
 		let currentSearch = Number($page.url.search.slice(8));
 
 		if (contains === 'yes') {
@@ -46,7 +46,7 @@
 			console.log(dataOfNo);
 		}
 
-		goto(`/student?search=${currentSearch - 1}`, { noScroll: true });
+		await goto(`/student?search=${currentSearch - 1}`, { noScroll: true });
 	};
 </script>
 
