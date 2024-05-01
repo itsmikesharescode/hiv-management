@@ -7,7 +7,7 @@
 
 <ModeWatcher />
 <Toaster />
-
+<div class="">asdasd</div>
 <div class="fixed bottom-0 m-[20px]">
 	<DarkMode />
 </div>
