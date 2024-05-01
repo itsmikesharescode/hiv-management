@@ -9,6 +9,7 @@
 	import { DateFormatter, getLocalTimeZone, type DateValue } from '@internationalized/date';
 	import { enhance } from '$app/forms';
 	import { calculateAge, formatDateToString } from '$lib/helpers';
+	import { goto } from '$app/navigation';
 
 	const df = new DateFormatter('en-US', {
 		dateStyle: 'long'
@@ -43,6 +44,7 @@
 				case 200:
 					toast.success('Register', { description: msg });
 					registerLoader = false;
+					goto('/student?search=1');
 					break;
 
 				case 400:
