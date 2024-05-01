@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { Input } from '$lib/components/ui/input/index';
 	import { Label } from '$lib/components/ui/label/index';
@@ -27,6 +28,7 @@
 				case 200:
 					toast.success('Log in', { description: msg });
 					loginLoader = false;
+					goto('/student?search=1');
 					break;
 
 				case 400:
