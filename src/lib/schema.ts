@@ -6,6 +6,7 @@ export const loginSchema = z.object({
 });
 
 export const registerSchema = z.object({
+    age: z.string(),
     firstName: z.string().min(1, { message: 'Enter a valid first name.' }).max(10, { message: "Max character is 10 for first name." }),
     middleName: z.string().min(1, { message: 'Enter a valid middle name.' }).max(10, { message: "Max character is 10 for middle name." }),
     lastName: z.string().min(1, { message: 'Enter a valid last name.' }).max(10, { message: "Max character is 10 for last name." }),
