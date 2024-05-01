@@ -6,7 +6,7 @@
 
 <div class=" lg:px-[5rem]">
 	<div
-		class="lg: mx-auto grid w-full grid-cols-1 gap-[15px] rounded-lg bg-[#ffffff] p-[2rem] lg:w-[350px]"
+		class="lg: mx-auto grid w-full grid-cols-1 gap-[15px] rounded-lg bg-[#ffffff] p-[2rem] dark:bg-black lg:w-[350px]"
 	>
 		<div class="text-center">
 			<h3 class="scroll-m-20 text-2xl font-semibold tracking-tight">Forgot Password</h3>
@@ -22,7 +22,7 @@
 		<Button>Send Password Link</Button>
 	</div>
 
-	<div class="mx-auto mt-[30px] max-w-fit rounded-lg bg-white">
+	<div class="mx-auto mt-[30px] max-w-fit rounded-lg bg-white dark:bg-black">
 		<Button variant="link" href="/">Log in here</Button>
 	</div>
 </div>

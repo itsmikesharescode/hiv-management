@@ -6,7 +6,9 @@
 </script>
 
 <div class=" lg:px-[5rem]">
-	<div class="lg: mx-auto grid w-full grid-cols-1 gap-[15px] rounded-lg bg-[#ffffff] p-[2rem]">
+	<div
+		class="lg: mx-auto grid w-full grid-cols-1 gap-[15px] rounded-lg bg-[#ffffff] p-[2rem] dark:bg-black"
+	>
 		<div class="text-center lg:text-left">
 			<h3 class="scroll-m-20 text-2xl font-semibold tracking-tight">Register</h3>
 			<p class="text-sm text-muted-foreground">Register in to HIV Awareness</p>
@@ -63,7 +65,7 @@
 		<Button>Register</Button>
 	</div>
 
-	<div class="mx-auto mt-[30px] max-w-fit rounded-lg bg-white">
+	<div class="mx-auto mt-[30px] max-w-fit rounded-lg bg-white dark:bg-black">
 		<Button variant="link" href="/">Log in here</Button>
 	</div>
 </div>

@@ -19,12 +19,13 @@ export const actions: Actions = {
                 password: result.password
             });
 
-            if (loginError) return fail(402, { msg: loginError.message });
+            if (loginError) return fail(401, { msg: loginError.message });
             else return { msg: "Log in successfully." };
 
         } catch (error) {
             const zodError = error as ZodError;
             const { fieldErrors } = zodError.flatten();
+
             return fail(400, { errors: fieldErrors });
         }
     }
