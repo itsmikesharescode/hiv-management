@@ -9,4 +9,5 @@ export type ResultModel<T> = {
 export type Question = {
     title: string
     description: string
+    photo_link: string
 }
