@@ -18,3 +18,26 @@ export const calculateAge = (dateObj: DateValue | undefined) => {
 
     return undefined;
 };
+
+export const formatDateToString = (date: Date) => {
+    const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ];
+    const monthIndex = date.getMonth();
+    const month = months[monthIndex];
+    const day = date.getDate();
+    const year = date.getFullYear();
+
+    return `${month} ${day}, ${year}`;
+}

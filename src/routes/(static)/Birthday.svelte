@@ -7,7 +7,7 @@
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import { Button } from '$lib/components/ui/button';
 	import CalendarIcon from 'lucide-svelte/icons/calendar';
-	import { date } from 'zod';
+
 	const df = new DateFormatter('en-US', {
 		dateStyle: 'long'
 	});
@@ -61,25 +61,6 @@
 	export { className as class };
 
 	export let disabled = false;
-
-	const calculateAge = (dateObj: DateValue | undefined) => {
-		if (dateObj) {
-			const { day, month, year } = dateObj;
-			const today: Date = new Date();
-			const birthDate: Date = new Date(year, month - 1, day);
-
-			let age: number = today.getFullYear() - birthDate.getFullYear();
-			const monthDiff: number = today.getMonth() - birthDate.getMonth();
-
-			if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-				age--;
-			}
-
-			return age;
-		}
-
-		return undefined;
-	};
 </script>
 
 <Popover.Root>

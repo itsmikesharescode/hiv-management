@@ -6,9 +6,13 @@
 	import Birthday from './Birthday.svelte';
 	import { toast } from 'svelte-sonner';
 	import type { ResultModel } from '$lib/types';
-	import type { DateValue } from '@internationalized/date';
+	import { DateFormatter, getLocalTimeZone, type DateValue } from '@internationalized/date';
 	import { enhance } from '$app/forms';
-	import { calculateAge } from '$lib/helpers';
+	import { calculateAge, formatDateToString } from '$lib/helpers';
+
+	const df = new DateFormatter('en-US', {
+		dateStyle: 'long'
+	});
 
 	type RegisterVal = {
 		firstName: string[];
@@ -20,6 +24,7 @@
 		department: string[];
 		email: string[];
 		password: string[];
+		confirmPassword: string[];
 	};
 
 	let formErrors: RegisterVal | null = null;
@@ -67,39 +72,47 @@
 			<h3 class="scroll-m-20 text-2xl font-semibold tracking-tight">Register</h3>
 			<p class="text-sm text-muted-foreground">Register in to HIV Awareness</p>
 		</div>
-		<div class="grid grid-cols-1 gap-[20px] lg:grid-cols-[1fr,1fr,1fr]">
-			<div class="flex w-full flex-col gap-1.5">
-				<Label for="firstName">First Name</Label>
-				<Input
-					name="firstName"
-					disabled={registerLoader}
-					type="text"
-					id="firstName"
-					placeholder="Enter your first name"
-				/>
-			</div>
 
-			<div class="flex w-full flex-col gap-1.5">
-				<Label for="middleName">Middle Name</Label>
-				<Input
-					name="middleName"
-					disabled={registerLoader}
-					type="text"
-					id="middleName"
-					placeholder="Enter your middle name"
-				/>
-			</div>
+		<div class="flex w-full flex-col gap-1.5">
+			<Label for="firstName">First Name</Label>
+			<Input
+				name="firstName"
+				disabled={registerLoader}
+				type="text"
+				id="firstName"
+				placeholder="Enter your first name"
+			/>
+			{#each formErrors?.firstName ?? [] as errorMsg}
+				<p class="text-sm text-red-500">{errorMsg}</p>
+			{/each}
+		</div>
 
-			<div class="flex w-full flex-col gap-1.5">
-				<Label for="lastName">Last Name</Label>
-				<Input
-					name="lastName"
-					disabled={registerLoader}
-					type="text"
-					id="lastName"
-					placeholder="Enter your last name"
-				/>
-			</div>
+		<div class="flex w-full flex-col gap-1.5">
+			<Label for="middleName" class="truncate">Middle Name</Label>
+			<Input
+				name="middleName"
+				disabled={registerLoader}
+				type="text"
+				id="middleName"
+				placeholder="Enter your middle name"
+			/>
+			{#each formErrors?.middleName ?? [] as errorMsg}
+				<p class="text-sm text-red-500">{errorMsg}</p>
+			{/each}
+		</div>
+
+		<div class="flex w-full flex-col gap-1.5">
+			<Label for="lastName">Last Name</Label>
+			<Input
+				name="lastName"
+				disabled={registerLoader}
+				type="text"
+				id="lastName"
+				placeholder="Enter your last name"
+			/>
+			{#each formErrors?.lastName ?? [] as errorMsg}
+				<p class="text-sm text-red-500">{errorMsg}</p>
+			{/each}
 		</div>
 
 		<div class="flex w-full flex-col gap-1.5">
@@ -107,10 +120,13 @@
 			<input
 				name="birthDay"
 				type="hidden"
-				value={`${birthDayVal?.month} ${birthDayVal?.day}, ${birthDayVal?.year}`}
+				value={birthDayVal ? df.format(birthDayVal.toDate(getLocalTimeZone())) : ''}
 			/>
 			<input name="age" type="hidden" value={calculateAge(birthDayVal)} />
-			<Birthday disabled={registerLoader} />
+			<Birthday disabled={registerLoader} bind:value={birthDayVal} />
+			{#each formErrors?.birthDay ?? [] as errorMsg}
+				<p class="text-sm text-red-500">{errorMsg}</p>
+			{/each}
 		</div>
 
 		<div class="grid grid-cols-1 gap-[20px] lg:grid-cols-2">
@@ -123,6 +139,9 @@
 					id="yearLevel"
 					placeholder="Enter your year level"
 				/>
+				{#each formErrors?.yearLvl ?? [] as errorMsg}
+					<p class="text-sm text-red-500">{errorMsg}</p>
+				{/each}
 			</div>
 
 			<div class="flex w-full flex-col gap-1.5">
@@ -134,6 +153,9 @@
 					id="section"
 					placeholder="Enter your section"
 				/>
+				{#each formErrors?.section ?? [] as errorMsg}
+					<p class="text-sm text-red-500">{errorMsg}</p>
+				{/each}
 			</div>
 		</div>
 
@@ -146,6 +168,9 @@
 				id="department"
 				placeholder="Enter your department"
 			/>
+			{#each formErrors?.department ?? [] as errorMsg}
+				<p class="text-sm text-red-500">{errorMsg}</p>
+			{/each}
 		</div>
 
 		<div class="flex w-full flex-col gap-1.5">
@@ -157,6 +182,9 @@
 				id="email"
 				placeholder="Enter your email"
 			/>
+			{#each formErrors?.email ?? [] as errorMsg}
+				<p class="text-sm text-red-500">{errorMsg}</p>
+			{/each}
 		</div>
 
 		<div class="flex w-full flex-col gap-1.5">
@@ -168,6 +196,23 @@
 				id="password"
 				placeholder="Enter your password"
 			/>
+			{#each formErrors?.password ?? [] as errorMsg}
+				<p class="text-sm text-red-500">{errorMsg}</p>
+			{/each}
+		</div>
+
+		<div class="flex w-full flex-col gap-1.5">
+			<Label for="password">Confirm Password</Label>
+			<Input
+				name="confirmPassword"
+				disabled={registerLoader}
+				type="password"
+				id="confirmPassword"
+				placeholder="Confirm your password"
+			/>
+			{#each formErrors?.confirmPassword ?? [] as errorMsg}
+				<p class="text-sm text-red-500">{errorMsg}</p>
+			{/each}
 		</div>
 
 		<Button disabled={registerLoader} type="submit">Register</Button>

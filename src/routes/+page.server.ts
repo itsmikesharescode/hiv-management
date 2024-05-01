@@ -1,4 +1,4 @@
-import { loginSchema } from "$lib/schema";
+import { loginSchema, registerSchema } from "$lib/schema";
 import type { ZodError } from "zod";
 import type { Actions, PageServerLoad } from "./$types";
 import { fail } from "@sveltejs/kit";
@@ -35,7 +35,26 @@ export const actions: Actions = {
         const formData = Object.fromEntries(await request.formData());
 
         try {
-            const result = loginSchema.parse(formData);
+            const result = registerSchema.parse(formData);
+
+            const { data: { user }, error } = await supabase.auth.signUp({
+                email: result.email,
+                password: result.password,
+                options: {
+                    data: {
+                        fullName: `${result.lastName}, ${result.firstName} ${result.middleName}`,
+                        birthDay: result.birthDay,
+                        age: result.age,
+                        yearLvl: result.yearLvl,
+                        section: result.section,
+                        department: result.department
+                    }
+                }
+            });
+
+            if (error) return fail(401, { msg: error.message });
+            else if (user) return { msg: "Account Created." };
+
         } catch (error) {
             const zodError = error as ZodError;
             const { fieldErrors } = zodError.flatten();
