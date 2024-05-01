@@ -41,7 +41,7 @@
 
 			switch (status) {
 				case 200:
-					toast.success('Log in', { description: msg });
+					toast.success('Register', { description: msg });
 					registerLoader = false;
 					break;
 
@@ -52,7 +52,7 @@
 
 				case 401:
 					formErrors = null;
-					toast.error('Log in', { description: msg });
+					toast.error('Register', { description: msg });
 					registerLoader = false;
 					break;
 			}
