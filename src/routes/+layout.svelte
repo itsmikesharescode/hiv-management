@@ -2,13 +2,10 @@
 	import '../app.pcss';
 	import { Toaster } from '$lib/components/ui/sonner';
 	import { ModeWatcher } from 'mode-watcher';
-	import DarkMode from './(static)/DarkMode.svelte';
+
+	import Nav from './(static)/Nav.svelte';
 </script>
 
 <ModeWatcher />
 <Toaster />
-<div class="">asdasd</div>
-<div class="fixed bottom-0 m-[20px]">
-	<DarkMode />
-</div>
 <slot />
