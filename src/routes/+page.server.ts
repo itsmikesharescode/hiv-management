@@ -1,4 +1,4 @@
-import { loginSchema, registerSchema } from "$lib/schema";
+import { loginSchema, registerSchema, resetPassSchema } from "$lib/schema";
 import type { ZodError } from "zod";
 import type { Actions, PageServerLoad } from "./$types";
 import { fail } from "@sveltejs/kit";
@@ -54,6 +54,20 @@ export const actions: Actions = {
 
             if (error) return fail(401, { msg: error.message });
             else if (user) return { msg: "Account Created." };
+
+        } catch (error) {
+            const zodError = error as ZodError;
+            const { fieldErrors } = zodError.flatten();
+
+            return fail(400, { errors: fieldErrors });
+        }
+    },
+
+    resetPasswordAction: async ({ locals: { supabase }, request }) => {
+        const formData = Object.fromEntries(await request.formData());
+
+        try {
+            const result = resetPassSchema.parse(formData);
 
         } catch (error) {
             const zodError = error as ZodError;
