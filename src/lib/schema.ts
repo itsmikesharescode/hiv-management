@@ -17,3 +17,4 @@ export const registerSchema = z.object({
     email: z.string().email({ message: "Email is required." }).max(20, { message: "Max character is 20 for email." }),
     password: z.string().min(6, { message: "Must enter a strong password." }).max(20, { message: "Max character is 10 for password." })
 });
+
