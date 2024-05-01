@@ -8,6 +8,7 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions: Actions = {
+
     loginAction: async ({ locals: { supabase }, request }) => {
         const formData = Object.fromEntries(await request.formData());
 
@@ -28,5 +29,7 @@ export const actions: Actions = {
 
             return fail(400, { errors: fieldErrors });
         }
-    }
+    },
+
+
 };
