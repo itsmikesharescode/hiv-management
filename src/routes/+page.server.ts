@@ -63,11 +63,16 @@ export const actions: Actions = {
         }
     },
 
-    resetPasswordAction: async ({ locals: { supabase }, request }) => {
+    resetPassAction: async ({ locals: { supabase }, request }) => {
         const formData = Object.fromEntries(await request.formData());
 
         try {
             const result = resetPassSchema.parse(formData);
+
+            const { error } = await supabase.auth.resetPasswordForEmail(result.email);
+
+            if (error) return fail(401, { msg: error.message });
+            else return { msg: `An email containing reset password has been sent to ${result.email}` };
 
         } catch (error) {
             const zodError = error as ZodError;
