@@ -1,4 +1,5 @@
 import type { DateValue } from "@internationalized/date";
+import type { Question } from "./types";
 
 export const calculateAge = (dateObj: DateValue | undefined) => {
     if (dateObj) {
@@ -40,4 +41,11 @@ export const formatDateToString = (date: Date) => {
     const year = date.getFullYear();
 
     return `${month} ${day}, ${year}`;
+};
+
+const calculatePercentage = (ArrayOfYes: Question[], ArrayOfNo: Question[]) => {
+    const totalResponses = ArrayOfYes.length + ArrayOfNo.length;
+    const yesCount = ArrayOfYes.length;
+    const percentage = (yesCount / totalResponses) * 100;
+    return percentage;
 }
