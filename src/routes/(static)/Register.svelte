@@ -44,7 +44,7 @@
 				case 200:
 					toast.success('Register', { description: msg });
 					registerLoader = false;
-					goto('/student?search=1');
+					goto('/student', { noScroll: true });
 					break;
 
 				case 400:

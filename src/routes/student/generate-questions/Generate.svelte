@@ -2,8 +2,7 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import { questionArray, hivFreeArray, possibleHIV, slightHIV } from './questions';
-	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
+	import { LoaderCircle } from 'lucide-svelte';
 	import { MoveLeft, Check } from 'lucide-svelte';
 	import * as Avatar from '$lib/components/ui/avatar/index.js';
 	import type { Question, ResultModel } from '$lib/types';
@@ -12,6 +11,7 @@
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { getUserState } from '$lib';
+	import { toast } from 'svelte-sonner';
 
 	const userState = getUserState();
 
@@ -67,15 +67,24 @@
 		dataOfNo = [];
 	};
 
+	let resultSubmitLoader = false;
 	const submitResultActionNews: SubmitFunction = () => {
+		resultSubmitLoader = true;
 		return async ({ result, update }) => {
-			const { status } = result as ResultModel<{ msg: string }>;
+			const {
+				status,
+				data: { msg }
+			} = result as ResultModel<{ msg: string }>;
 
 			switch (status) {
 				case 200:
+					toast.success('Result Submittion', { description: msg });
+					resultSubmitLoader = false;
 					break;
 
 				case 401:
+					toast.error('Result Submittion', { description: msg });
+					resultSubmitLoader = false;
 					break;
 			}
 			await update();
@@ -115,10 +124,22 @@
 						percentage: Math.round(calculatePercentage(dataOfYes, dataOfNo))
 					})}
 				/>
-				<Button type="submit" class="w-full sm:max-w-fit">Submit Result</Button>
+				<Button
+					disabled={resultSubmitLoader}
+					type="submit"
+					class="flex w-full items-center gap-[10px] sm:max-w-fit"
+				>
+					{#if resultSubmitLoader}
+						Please wait... <LoaderCircle class="h-[15px] w-[15px] animate-spin" />
+					{:else}
+						Submit Result
+					{/if}
+				</Button>
 			</form>
 
-			<Button class="w-full sm:max-w-fit" on:click={reAnswer}>Re-answer</Button>
+			<Button disabled={resultSubmitLoader} class="w-full sm:max-w-fit" on:click={reAnswer}
+				>Re-answer</Button
+			>
 		</Card.Footer>
 	</Card.Root>
 {:else}

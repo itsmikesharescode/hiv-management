@@ -7,6 +7,7 @@ export const load: PageServerLoad = async ({ locals: { safeGetSession } }) => {
 
     if (!user) return redirect(302, "/?error=no-session");
     if (user.role === "service_role") return redirect(302, "/admin");
+
     return { user }
 };
 
@@ -24,7 +25,13 @@ export const actions: Actions = {
 
         const studentAnswers = JSON.parse(studentStringObj) as { userId: string, percentage: number };
 
+        const { error } = await supabase.from("hiv_results_tb").insert([{
+            user_id: studentAnswers.userId,
+            percentage: studentAnswers.percentage
+        }]);
 
+        if (error) return fail(401, { msg: error.message });
+        else return { msg: "Successfully submitted." };
 
     }
 };

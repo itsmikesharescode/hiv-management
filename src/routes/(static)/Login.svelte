@@ -28,7 +28,7 @@
 				case 200:
 					toast.success('Log in', { description: msg });
 					loginLoader = false;
-					goto('/student?search=1');
+					goto('/student', { noScroll: true });
 					break;
 
 				case 400:
