@@ -1,70 +1,44 @@
 <script lang="ts">
+	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Table from '$lib/components/ui/table/index.js';
+	import type { Respondent, UserList } from '$lib/types';
+	import DeleteRespondent from './delete-respondent.svelte';
+	import UpdateRespondent from './update-respondent.svelte';
 
-	const invoices = [
-		{
-			invoice: 'INV001',
-			paymentStatus: 'Paid',
-			totalAmount: '$250.00',
-			paymentMethod: 'Credit Card'
-		},
-		{
-			invoice: 'INV002',
-			paymentStatus: 'Pending',
-			totalAmount: '$150.00',
-			paymentMethod: 'PayPal'
-		},
-		{
-			invoice: 'INV003',
-			paymentStatus: 'Unpaid',
-			totalAmount: '$350.00',
-			paymentMethod: 'Bank Transfer'
-		},
-		{
-			invoice: 'INV004',
-			paymentStatus: 'Paid',
-			totalAmount: '$450.00',
-			paymentMethod: 'Credit Card'
-		},
-		{
-			invoice: 'INV005',
-			paymentStatus: 'Paid',
-			totalAmount: '$550.00',
-			paymentMethod: 'PayPal'
-		},
-		{
-			invoice: 'INV006',
-			paymentStatus: 'Pending',
-			totalAmount: '$200.00',
-			paymentMethod: 'Bank Transfer'
-		},
-		{
-			invoice: 'INV007',
-			paymentStatus: 'Unpaid',
-			totalAmount: '$300.00',
-			paymentMethod: 'Credit Card'
-		}
-	];
+	export let respondents: Respondent[] | null;
 </script>
 
-<div class="p-[2rem]">
+<div class="">
 	<Table.Root>
-		<Table.Caption>A list of your recent invoices.</Table.Caption>
+		<Table.Caption>HIV Respondents.</Table.Caption>
 		<Table.Header>
-			<Table.Row>
-				<Table.Head class="w-[100px]">Invoice</Table.Head>
-				<Table.Head>Status</Table.Head>
-				<Table.Head>Method</Table.Head>
-				<Table.Head class="text-right">Amount</Table.Head>
+			<Table.Row class="truncate">
+				<Table.Head>Email</Table.Head>
+				<Table.Head>Full Name</Table.Head>
+				<Table.Head>Birth Day</Table.Head>
+				<Table.Head>Age</Table.Head>
+				<Table.Head>Year Level</Table.Head>
+				<Table.Head>Section</Table.Head>
+				<Table.Head>Department</Table.Head>
+				<Table.Head>HIV Percentage</Table.Head>
+				<Table.Head>Options</Table.Head>
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>
-			{#each invoices as invoice, i (i)}
+			{#each respondents ?? [] as respondent, index}
 				<Table.Row>
-					<Table.Cell class="font-medium">{invoice.invoice}</Table.Cell>
-					<Table.Cell>{invoice.paymentStatus}</Table.Cell>
-					<Table.Cell>{invoice.paymentMethod}</Table.Cell>
-					<Table.Cell class="text-right">{invoice.totalAmount}</Table.Cell>
+					<Table.Cell>{respondent.user_list_tb.user_email}</Table.Cell>
+					<Table.Cell>{respondent.user_list_tb.user_fullname}</Table.Cell>
+					<Table.Cell>{respondent.user_list_tb.user_birthday}</Table.Cell>
+					<Table.Cell>{respondent.user_list_tb.user_age}</Table.Cell>
+					<Table.Cell>{respondent.user_list_tb.user_year_lvl}</Table.Cell>
+					<Table.Cell>{respondent.user_list_tb.user_section}</Table.Cell>
+					<Table.Cell>{respondent.user_list_tb.user_department}</Table.Cell>
+					<Table.Cell>{respondent.percentage} %</Table.Cell>
+					<Table.Cell class="flex items-center gap-[10px]">
+						<UpdateRespondent />
+						<DeleteRespondent />
+					</Table.Cell>
 				</Table.Row>
 			{/each}
 		</Table.Body>

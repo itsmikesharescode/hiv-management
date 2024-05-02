@@ -22,4 +22,26 @@ export type StudentInput = {
     section: string
     yearLvl: string
     percentage: number
+};
+
+export type UserList = {
+    created_at: string
+    had_submit: boolean
+    id: number
+    user_age: string
+    user_birthday: string
+    user_department: string
+    user_email: string
+    user_fullname: string
+    user_id: string
+    user_section: string
+    user_year_lvl: string
+}
+
+export type Respondent = {
+    created_at: string
+    id: number
+    percentage: string
+    user_id: string
+    user_list_tb: UserList
 }
