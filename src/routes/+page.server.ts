@@ -8,7 +8,7 @@ export const load: PageServerLoad = async ({ locals: { safeGetSession } }) => {
 
     if (user) {
         const { role } = user;
-        if (role === "authenticated") return redirect(302, "/student?search=1");
+        if (role === "authenticated") return redirect(302, "/student");
         else if (role === "service_role") return redirect(302, "/admin");
     }
 
@@ -55,7 +55,7 @@ export const actions: Actions = {
                         age: result.age,
                         yearLvl: result.yearLvl,
                         section: result.section,
-                        department: result.department
+                        department: result.department,
                     }
                 }
             });

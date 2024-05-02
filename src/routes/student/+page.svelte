@@ -4,6 +4,7 @@
 	import { getUserState, setUserState } from '$lib';
 	import type { PageServerData } from './$types';
 	import Nav from '../(static)/Nav.svelte';
+	import Suggestion from './suggesstions/Suggestion.svelte';
 
 	export let data: PageServerData;
 
@@ -16,9 +17,20 @@
 
 <div class="relative">
 	<div class="z-20 flex min-h-screen items-center justify-center">
-		<div class="w-full p-[2rem] md:w-[900px]">
-			<Generate />
-		</div>
+		{#if data.userList.data?.had_submit}
+			<div class="flex flex-col gap-[20px] p-[2rem]">
+				<h3
+					class="mx-auto max-w-fit scroll-m-20 rounded-lg bg-red-500 p-[1rem] text-center text-4xl font-semibold tracking-tight"
+				>
+					Thanks for participating. {$userState?.user_metadata.fullName.split(',')[0]}
+				</h3>
+				<Suggestion />
+			</div>
+		{:else}
+			<div class="w-full p-[2rem] md:w-[900px]">
+				<Generate />
+			</div>
+		{/if}
 	</div>
 
 	<img
