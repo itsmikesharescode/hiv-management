@@ -91,3 +91,42 @@ export const questionArray = [
         photo_link: infections15
     }
 ];
+
+export const hivFreeArray = [
+    "Rest assured, you are HIV-free!",
+    "You can be confident that HIV is not a concern for you!",
+    "You can breathe easy knowing that HIV is not a worry for you!",
+    "You can be reassured that you are not affected by HIV!",
+    "You can be certain that HIV is not a factor for you!",
+    "Be assured, HIV is not a risk for you!",
+    "You can be confident that HIV is not something you need to worry about!",
+    "You can be sure that HIV is not a concern for you!",
+    "You can be confident in the knowledge that you do not have HIV!",
+    "You can be at ease knowing that HIV is not something you need to be concerned about!",
+];
+
+export const possibleHIV = [
+    "Based on your responses, there's a possibility you may have HIV. We strongly recommend seeking medical assistance.",
+    "Your inputs suggest a potential risk of HIV. It's imperative to seek medical help promptly.",
+    "Your inputs indicate a likelihood of HIV. We urge you to seek urgent medical attention.",
+    "According to your inputs, there's a chance you might have HIV. It's critical to consult with a healthcare professional immediately.",
+    "Based on your information, it's possible that you have HIV. Seeking medical assistance is crucial.",
+    "Your responses suggest a potential HIV risk. It's vital to seek medical guidance without delay.",
+    "According to your inputs, you may be at risk of HIV. We strongly advise seeking medical assistance as soon as possible.",
+    "Your inputs indicate a possibility of HIV infection. It's essential to consult with a healthcare provider urgently.",
+    "Based on your responses, there's a chance of HIV. It's imperative to seek medical advice promptly.",
+    "Your inputs suggest a potential HIV concern. It's crucial to seek immediate medical attention for proper evaluation."
+];
+
+export const slightHIV = [
+    "It appears there may be indicators of HIV. It's essential to seek medical assistance for proper evaluation.",
+    "Your situation shows similarities to HIV. It's important to consult with a healthcare professional for further evaluation.",
+    "There are signs suggesting HIV. It's crucial to seek medical help promptly for a thorough assessment.",
+    "There seem to be resemblances to HIV in your case. Seeking medical assistance is highly recommended.",
+    "Your situation presents similarities to HIV. It's vital to consult with a healthcare provider for further evaluation.",
+    "There are indications pointing towards HIV. It's imperative to seek medical assistance for a comprehensive assessment.",
+    "It appears that HIV similarities are present. Seeking urgent medical advice is strongly advised.",
+    "Your situation bears resemblance to HIV. It's essential to seek immediate medical attention for proper evaluation.",
+    "There seem to be similarities with HIV in your case. It's crucial to consult with a healthcare professional promptly.",
+    "Your situation displays similarities to HIV. It's important to seek medical assistance without delay for further evaluation."
+]

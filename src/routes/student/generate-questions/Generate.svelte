@@ -7,6 +7,8 @@
 	import { MoveLeft, Check } from 'lucide-svelte';
 	import * as Avatar from '$lib/components/ui/avatar/index.js';
 	import type { Question } from '$lib/types';
+	import { calculatePercentage } from '$lib/helpers';
+	import { Confetti } from 'svelte-confetti';
 
 	$: currentSearch = Number($page.url.search.slice(8)) + 1;
 	let dataOfYes: Question[] = [];
@@ -18,8 +20,8 @@
 
 		dataOfYes.push(questionArray[currentSearch - 2]);
 		dataOfYes = dataOfYes;
-		console.log(dataOfYes);
 		contains = 'yes';
+
 		await goto(`/student?search=${currentSearch++}`, { noScroll: true });
 	};
 
@@ -28,7 +30,7 @@
 
 		dataOfNo.push(questionArray[currentSearch - 2]);
 		dataOfNo = dataOfNo;
-		console.log(dataOfNo);
+
 		contains = 'no';
 		await goto(`/student?search=${currentSearch++}`, { noScroll: true });
 	};
@@ -39,16 +41,57 @@
 		if (contains === 'yes') {
 			dataOfYes.pop();
 			dataOfYes = dataOfYes;
-			console.log(dataOfYes);
 		} else if (contains === 'no') {
 			dataOfNo.pop();
 			dataOfNo = dataOfNo;
-			console.log(dataOfNo);
 		}
 
 		await goto(`/student?search=${currentSearch - 1}`, { noScroll: true });
 	};
 </script>
+
+<!-- <div
+	style="
+ position: fixed;
+ top: -50px;
+ left: 0;
+ height: 100vh;
+ width: 100vw;
+ display: flex;
+ justify-content: center;
+ overflow: hidden;
+ pointer-events: none;"
+>
+	<Confetti
+		x={[-5, 5]}
+		y={[0, 0.1]}
+		delay={[500, 2000]}
+		infinite
+		duration={5000}
+		amount={400}
+		fallDistance="100vh"
+	/>
+</div> -->
+
+<Card.Root>
+	<Card.Header class="relative flex items-center justify-center py-[5rem]">
+		<!-- <Confetti
+			xSpread={5}
+			y={[0, 2]}
+			delay={[500, 2000]}
+			infinite
+			duration={5000}
+			amount={400}
+			fallDistance="100vh"
+		/> -->
+		<Card.Title class="text-center text-[1rem] sm:text-[2rem] md:text-[3rem]"
+			>We are absolutely certain that you do not have HIV!</Card.Title
+		>
+		<Card.Description class="text-[3rem] sm:text-[4rem] md:text-[6rem] lg:text-[10rem]"
+			>66%</Card.Description
+		>
+	</Card.Header>
+</Card.Root>
 
 <Card.Root class="">
 	<Card.Header>

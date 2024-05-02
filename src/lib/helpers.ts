@@ -43,7 +43,7 @@ export const formatDateToString = (date: Date) => {
     return `${month} ${day}, ${year}`;
 };
 
-const calculatePercentage = (ArrayOfYes: Question[], ArrayOfNo: Question[]) => {
+export const calculatePercentage = (ArrayOfYes: Question[], ArrayOfNo: Question[]) => {
     const totalResponses = ArrayOfYes.length + ArrayOfNo.length;
     const yesCount = ArrayOfYes.length;
     const percentage = (yesCount / totalResponses) * 100;
