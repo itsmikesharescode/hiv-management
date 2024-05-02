@@ -1,9 +1,11 @@
-import { fail } from "@sveltejs/kit";
+import { fail, redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ locals: { safeGetSession } }) => {
     const { user } = await safeGetSession();
 
+    if (!user) return redirect(302, "/?error=no-session");
+    if (user.role === "service_role") return redirect(302, "/admin");
     return { user }
 };
 

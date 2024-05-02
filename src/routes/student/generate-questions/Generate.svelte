@@ -15,6 +15,7 @@
 	let dataOfNo: Question[] = [];
 	let contains: 'yes' | 'no' | undefined = undefined;
 
+	// function for yes answer question
 	const yesAnswer = async () => {
 		dataOfYes.push(questionArray[currentSearch - 2]);
 		dataOfYes = dataOfYes;
@@ -23,6 +24,7 @@
 		await goto(`/student?search=${currentSearch++}`, { noScroll: true });
 	};
 
+	// function for no answer question
 	const noAnswer = async () => {
 		dataOfNo.push(questionArray[currentSearch - 2]);
 		dataOfNo = dataOfNo;
@@ -31,6 +33,7 @@
 		await goto(`/student?search=${currentSearch++}`, { noScroll: true });
 	};
 
+	// navigate to prev question
 	const navigateBack = async () => {
 		let currentSearch = Number($page.url.search.slice(8));
 
@@ -45,6 +48,7 @@
 		await goto(`/student?search=${currentSearch - 1}`, { noScroll: true });
 	};
 
+	// generate text based in output
 	const generateText = (percentage: number) => {
 		if (percentage === 0)
 			return hivFreeArray[Math.round(Math.random() * hivFreeArray.length - 0.5)];
@@ -53,8 +57,11 @@
 			return possibleHIV[Math.round(Math.random() * possibleHIV.length - 0.5)];
 	};
 
+	//clean up
 	const reAnswer = async () => {
 		await goto('student?search=1', { noScroll: true });
+		dataOfYes = [];
+		dataOfNo = [];
 	};
 </script>
 
