@@ -6,9 +6,14 @@
 	import { goto } from '$app/navigation';
 	import { MoveLeft, Check } from 'lucide-svelte';
 	import * as Avatar from '$lib/components/ui/avatar/index.js';
-	import type { Question } from '$lib/types';
+	import type { Question, ResultModel } from '$lib/types';
 	import { calculatePercentage } from '$lib/helpers';
 	import { Confetti } from 'svelte-confetti';
+	import { enhance } from '$app/forms';
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import { getUserState } from '$lib';
+
+	const userState = getUserState();
 
 	let dataOfYes: Question[] = [];
 	let dataOfNo: Question[] = [];
@@ -61,6 +66,21 @@
 		dataOfYes = [];
 		dataOfNo = [];
 	};
+
+	const submitResultActionNews: SubmitFunction = () => {
+		return async ({ result, update }) => {
+			const { status } = result as ResultModel<{ msg: string }>;
+
+			switch (status) {
+				case 200:
+					break;
+
+				case 401:
+					break;
+			}
+			await update();
+		};
+	};
 </script>
 
 {#if initialStep + 1 > questionArray.length}
@@ -86,8 +106,16 @@
 		</Card.Header>
 
 		<Card.Footer class="flex flex-wrap items-center justify-end gap-[10px]">
-			<form>
-				<Button class="w-full sm:max-w-fit">Submit Result</Button>
+			<form method="post" action="?/submitResultAction" use:enhance={submitResultActionNews}>
+				<input
+					name="studentAnswers"
+					type="hidden"
+					value={JSON.stringify({
+						userId: $userState?.id,
+						percentage: Math.round(calculatePercentage(dataOfYes, dataOfNo))
+					})}
+				/>
+				<Button type="submit" class="w-full sm:max-w-fit">Submit Result</Button>
 			</form>
 
 			<Button class="w-full sm:max-w-fit" on:click={reAnswer}>Re-answer</Button>

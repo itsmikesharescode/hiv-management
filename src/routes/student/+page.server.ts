@@ -1,5 +1,6 @@
 import { fail, redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
+import type { StudentInput } from "$lib/types";
 
 export const load: PageServerLoad = async ({ locals: { safeGetSession } }) => {
     const { user } = await safeGetSession();
@@ -16,7 +17,14 @@ export const actions: Actions = {
         else return { msg: "Log out success." }
     },
 
-    submitResultAction: async ({ locals: { supabase } }) => {
-        console.log('here');
+    submitResultAction: async ({ locals: { supabase }, request }) => {
+        const formData = await request.formData();
+
+        const studentStringObj = formData.get("studentAnswers") as string;
+
+        const studentAnswers = JSON.parse(studentStringObj) as { userId: string, percentage: number };
+
+
+
     }
 };
