@@ -10,42 +10,40 @@
 	import { calculatePercentage } from '$lib/helpers';
 	import { Confetti } from 'svelte-confetti';
 
-	$: currentSearch = Number($page.url.search.slice(8)) + 1;
 	let dataOfYes: Question[] = [];
 	let dataOfNo: Question[] = [];
 	let contains: 'yes' | 'no' | undefined = undefined;
+	let initialStep = 0;
 
 	// function for yes answer question
 	const yesAnswer = async () => {
-		dataOfYes.push(questionArray[currentSearch - 2]);
+		dataOfYes.push(questionArray[initialStep]);
 		dataOfYes = dataOfYes;
 		contains = 'yes';
-
-		await goto(`/student?search=${currentSearch++}`, { noScroll: true });
+		initialStep++;
+		console.log(dataOfYes);
 	};
 
 	// function for no answer question
 	const noAnswer = async () => {
-		dataOfNo.push(questionArray[currentSearch - 2]);
+		dataOfNo.push(questionArray[initialStep]);
 		dataOfNo = dataOfNo;
-
 		contains = 'no';
-		await goto(`/student?search=${currentSearch++}`, { noScroll: true });
+		initialStep++;
+		console.log(dataOfNo);
 	};
 
 	// navigate to prev question
 	const navigateBack = async () => {
-		let currentSearch = Number($page.url.search.slice(8));
-
 		if (contains === 'yes') {
 			dataOfYes.pop();
 			dataOfYes = dataOfYes;
+			initialStep--;
 		} else if (contains === 'no') {
 			dataOfNo.pop();
 			dataOfNo = dataOfNo;
+			initialStep--;
 		}
-
-		await goto(`/student?search=${currentSearch - 1}`, { noScroll: true });
 	};
 
 	// generate text based in output
@@ -59,13 +57,13 @@
 
 	//clean up
 	const reAnswer = async () => {
-		await goto('student?search=1', { noScroll: true });
+		initialStep = 0;
 		dataOfYes = [];
 		dataOfNo = [];
 	};
 </script>
 
-{#if currentSearch > questionArray.length + 1}
+{#if initialStep + 1 > questionArray.length}
 	<Card.Root>
 		<Card.Header class="relative flex items-center justify-center py-[5rem]">
 			{#if Math.round(calculatePercentage(dataOfYes, dataOfNo)) === 0}
@@ -88,7 +86,10 @@
 		</Card.Header>
 
 		<Card.Footer class="flex flex-wrap items-center justify-end gap-[10px]">
-			<Button class="w-full sm:max-w-fit">Submit Result</Button>
+			<form>
+				<Button class="w-full sm:max-w-fit">Submit Result</Button>
+			</form>
+
 			<Button class="w-full sm:max-w-fit" on:click={reAnswer}>Re-answer</Button>
 		</Card.Footer>
 	</Card.Root>
@@ -96,25 +97,20 @@
 	<Card.Root class="">
 		<Card.Header>
 			<Card.Title class="text-[1rem] sm:text-[1.5rem] md:text-[2rem]">
-				Do you have <b class="text-red-500 underline"
-					>{questionArray[Number($page.url.search.slice(8)) - 1].title}</b
-				> ?
+				Do you have <b class="text-red-500 underline">{questionArray[initialStep].title}</b> ?
 			</Card.Title>
 
 			<Card.Description class="grid grid-cols-1 gap-[2rem] text-[1rem] sm:text-[1.2rem]">
-				{questionArray[Number($page.url.search.slice(8)) - 1].description}
+				{questionArray[initialStep].description}
 				<Avatar.Root class="h-[400px] w-full rounded-lg">
-					<Avatar.Image
-						src={questionArray[Number($page.url.search.slice(8)) - 1].photo_link}
-						alt="@hiv"
-					/>
+					<Avatar.Image src={questionArray[initialStep].photo_link} alt="@hiv" />
 					<Avatar.Fallback>hiv photo</Avatar.Fallback>
 				</Avatar.Root>
 			</Card.Description>
 		</Card.Header>
 
 		<Card.Footer class="flex flex-wrap justify-between gap-[10px]">
-			{#if Number($page.url.search.slice(8)) - 1 > 0}
+			{#if initialStep > 0}
 				<Button class="flex w-full items-center gap-[10px] md:max-w-fit" on:click={navigateBack}
 					><MoveLeft /> Prev</Button
 				>

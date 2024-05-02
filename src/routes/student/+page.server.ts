@@ -14,5 +14,9 @@ export const actions: Actions = {
         const { error } = await supabase.auth.signOut();
         if (error) return fail(401, { msg: error.message });
         else return { msg: "Log out success." }
+    },
+
+    submitResultAction: async ({ locals: { supabase } }) => {
+        console.log('here');
     }
 };
