@@ -26,7 +26,6 @@
 		dataOfYes = dataOfYes;
 		contains = 'yes';
 		initialStep++;
-		console.log(dataOfYes);
 	};
 
 	// function for no answer question
@@ -35,7 +34,6 @@
 		dataOfNo = dataOfNo;
 		contains = 'no';
 		initialStep++;
-		console.log(dataOfNo);
 	};
 
 	// navigate to prev question

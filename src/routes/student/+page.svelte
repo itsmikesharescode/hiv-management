@@ -17,7 +17,11 @@
 <div class="relative">
 	<div class="z-20 flex min-h-screen items-center justify-center">
 		<div class="w-full p-[2rem] md:w-[900px]">
-			<Generate />
+			{#if data.userList.data?.had_submit}
+				had submit
+			{:else}
+				<Generate />
+			{/if}
 		</div>
 	</div>
 

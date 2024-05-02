@@ -55,7 +55,7 @@ export const actions: Actions = {
                         age: result.age,
                         yearLvl: result.yearLvl,
                         section: result.section,
-                        department: result.department
+                        department: result.department,
                     }
                 }
             });
