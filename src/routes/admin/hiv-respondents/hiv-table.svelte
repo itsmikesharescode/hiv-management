@@ -40,7 +40,7 @@
 					</Table.Cell>
 					<Table.Cell class="flex items-center gap-[10px]">
 						<UpdateRespondent />
-						<DeleteRespondent />
+						<DeleteRespondent {respondent} />
 					</Table.Cell>
 				</Table.Row>
 			{/each}
