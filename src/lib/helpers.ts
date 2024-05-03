@@ -49,3 +49,5 @@ export const calculatePercentage = (ArrayOfYes: Question[], ArrayOfNo: Question[
     const percentage = (yesCount / totalResponses) * 100;
     return percentage;
 }
+
+
