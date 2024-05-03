@@ -68,7 +68,21 @@ export const actions: Actions = {
         try {
             const result = updateAccountSchema.parse(formData);
 
+            const { data: { user }, error } = await supabaseAdmin.auth.admin.updateUserById(result.userId, {
+                email: result.email,
+                password: result.password,
+                user_metadata: {
+                    fullName: `${result.lastName}, ${result.firstName} ${result.middleName}`,
+                    birthDay: result.birthDay,
+                    age: result.age,
+                    yearLvl: result.yearLvl,
+                    section: result.section,
+                    department: result.department,
+                }
+            });
 
+            if (error) return fail(401, { msg: error.message });
+            else if (user) return { msg: "Account Updated Successfully." };
 
         } catch (error) {
             const zodError = error as ZodError;

@@ -87,6 +87,7 @@
 			use:enhance={updateAccountActionNews}
 			class="flex flex-col gap-[20px]"
 		>
+			<input name="userId" type="hidden" value={respondent.user_id} />
 			<div class="grid max-h-[55dvh] grid-cols-1 gap-[20px] overflow-auto p-[2rem]">
 				<div class="flex w-full flex-col gap-1.5">
 					<Label for="firstName">First Name</Label>
