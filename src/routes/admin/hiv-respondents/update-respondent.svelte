@@ -10,11 +10,10 @@
 <AlertDialog.Root bind:open>
 	<AlertDialog.Content>
 		<AlertDialog.Header>
-			<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
-			<AlertDialog.Description>
-				This action cannot be undone. This will permanently delete your account and remove your data
-				from our servers.
-			</AlertDialog.Description>
+			<AlertDialog.Title>This will automatically done in sunday.</AlertDialog.Title>
+			<AlertDialog.Description
+				>This will automatically done in sunday. For assurance purposes.</AlertDialog.Description
+			>
 		</AlertDialog.Header>
 		<AlertDialog.Footer>
 			<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
