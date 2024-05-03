@@ -2,6 +2,7 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Table from '$lib/components/ui/table/index.js';
 	import type { Respondent, UserList, UserListWithRespondent } from '$lib/types';
+	import { flip } from 'svelte/animate';
 	import DeleteRespondent from './delete-respondent.svelte';
 	import UpdateRespondent from './update-respondent.svelte';
 
@@ -25,7 +26,7 @@
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>
-			{#each respondents ?? [] as respondent, index}
+			{#each respondents ?? [] as respondent (respondent.id)}
 				<Table.Row class="truncate">
 					<Table.Cell>{respondent.user_email}</Table.Cell>
 					<Table.Cell>{respondent.user_fullname}</Table.Cell>

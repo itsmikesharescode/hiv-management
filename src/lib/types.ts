@@ -57,5 +57,11 @@ export type UserListWithRespondent = {
     user_id: string
     user_section: string
     user_year_lvl: string
-    hiv_results_tb: Respondent
+    hiv_results_tb: Respondent | null
 }
+
+export interface SearchStoreModel<T extends Record<PropertyKey, any>> {
+    data: T[]
+    filtered: T[]
+    search: string
+};

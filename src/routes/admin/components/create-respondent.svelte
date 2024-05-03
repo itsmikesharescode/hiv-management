@@ -45,7 +45,7 @@
 
 			switch (status) {
 				case 200:
-					invalidateAll();
+					await invalidateAll();
 					formErrors = null;
 					toast.success('Create Account', { description: msg });
 					createAccountLoader = false;
