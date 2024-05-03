@@ -12,7 +12,7 @@ export const load: PageServerLoad = async ({ locals: { supabase, safeGetSession,
 
     return {
         user,
-        repondents: await supabaseAdmin.from("hiv_results_tb").select('*, user_list_tb("*")')
+        repondents: await supabaseAdmin.from("user_list_tb").select('*, hiv_results_tb("*")')
     }
 };
 

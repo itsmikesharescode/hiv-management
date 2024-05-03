@@ -11,6 +11,7 @@
 	import type { ResultModel } from '$lib/types';
 	import { toast } from 'svelte-sonner';
 	import { Loader } from 'lucide-svelte';
+	import { invalidateAll } from '$app/navigation';
 
 	let open = false;
 
@@ -44,6 +45,7 @@
 
 			switch (status) {
 				case 200:
+					invalidateAll();
 					formErrors = null;
 					toast.success('Create Account', { description: msg });
 					createAccountLoader = false;

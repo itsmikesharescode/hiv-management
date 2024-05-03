@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Table from '$lib/components/ui/table/index.js';
-	import type { Respondent, UserList } from '$lib/types';
+	import type { Respondent, UserList, UserListWithRespondent } from '$lib/types';
 	import DeleteRespondent from './delete-respondent.svelte';
 	import UpdateRespondent from './update-respondent.svelte';
 
-	export let respondents: Respondent[] | null;
+	export let respondents: UserListWithRespondent[] | null;
 </script>
 
 <div class="">
@@ -27,14 +27,16 @@
 		<Table.Body>
 			{#each respondents ?? [] as respondent, index}
 				<Table.Row>
-					<Table.Cell>{respondent.user_list_tb.user_email}</Table.Cell>
-					<Table.Cell>{respondent.user_list_tb.user_fullname}</Table.Cell>
-					<Table.Cell>{respondent.user_list_tb.user_birthday}</Table.Cell>
-					<Table.Cell>{respondent.user_list_tb.user_age}</Table.Cell>
-					<Table.Cell>{respondent.user_list_tb.user_year_lvl}</Table.Cell>
-					<Table.Cell>{respondent.user_list_tb.user_section}</Table.Cell>
-					<Table.Cell>{respondent.user_list_tb.user_department}</Table.Cell>
-					<Table.Cell>{respondent.percentage} %</Table.Cell>
+					<Table.Cell>{respondent.user_email}</Table.Cell>
+					<Table.Cell>{respondent.user_fullname}</Table.Cell>
+					<Table.Cell>{respondent.user_birthday}</Table.Cell>
+					<Table.Cell>{respondent.user_age}</Table.Cell>
+					<Table.Cell>{respondent.user_year_lvl}</Table.Cell>
+					<Table.Cell>{respondent.user_section}</Table.Cell>
+					<Table.Cell>{respondent.user_department}</Table.Cell>
+					<Table.Cell
+						>{respondent.hiv_results_tb ? `${respondent.hiv_results_tb.percentage} %` : 'N/A'}
+					</Table.Cell>
 					<Table.Cell class="flex items-center gap-[10px]">
 						<UpdateRespondent />
 						<DeleteRespondent />

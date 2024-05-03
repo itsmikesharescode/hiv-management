@@ -41,7 +41,21 @@ export type UserList = {
 export type Respondent = {
     created_at: string
     id: number
-    percentage: string
+    percentage: string | null
     user_id: string
-    user_list_tb: UserList
+}
+
+export type UserListWithRespondent = {
+    created_at: string
+    had_submit: boolean
+    id: number
+    user_age: string
+    user_birthday: string
+    user_department: string
+    user_email: string
+    user_fullname: string
+    user_id: string
+    user_section: string
+    user_year_lvl: string
+    hiv_results_tb: Respondent
 }
