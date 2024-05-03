@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import type { ResultModel, UserListWithRespondent } from '$lib/types';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { toast } from 'svelte-sonner';
+	import { Loader } from 'lucide-svelte';
 
 	export let respondent: UserListWithRespondent;
 
@@ -21,6 +23,7 @@
 
 			switch (status) {
 				case 200:
+					await invalidateAll();
 					toast.success('Delete Respondent', { description: msg });
 					deleteLoader = false;
 					break;
@@ -45,6 +48,7 @@
 			use:enhance={deleteRespondentActionNews}
 			class="grid grid-cols-1 gap-[20px]"
 		>
+			<input name="userId" type="hidden" value={respondent.user_id} />
 			<AlertDialog.Header>
 				<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
 				<AlertDialog.Description>
@@ -57,7 +61,13 @@
 			<AlertDialog.Footer>
 				<AlertDialog.Cancel disabled={deleteLoader}>Cancel</AlertDialog.Cancel>
 
-				<Button disabled={deleteLoader} type="submit">Delete This Respondent</Button>
+				<Button disabled={deleteLoader} type="submit">
+					{#if deleteLoader}
+						Deleting...<Loader class="h-[14px] w-[14px] animate-spin" />
+					{:else}
+						Delete This Respondent
+					{/if}
+				</Button>
 			</AlertDialog.Footer>
 		</form>
 	</AlertDialog.Content>

@@ -49,5 +49,16 @@ export const actions: Actions = {
             const { fieldErrors } = zodError.flatten();
             return fail(400, { errors: fieldErrors })
         }
+    },
+
+    deleteRespondentAction: async ({ locals: { supabaseAdmin }, request }) => {
+        const formData = await request.formData();
+
+        const userId = formData.get("userId") as string;
+
+        const { error } = await supabaseAdmin.auth.admin.deleteUser(userId);
+
+        if (error) return fail(401, { msg: error.message });
+        else return { msg: "Respondent Deleted Successfully." };
     }
 };
