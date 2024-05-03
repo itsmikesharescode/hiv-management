@@ -10,6 +10,7 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import type { ResultModel } from '$lib/types';
 	import { toast } from 'svelte-sonner';
+	import { Loader } from 'lucide-svelte';
 
 	let open = false;
 
@@ -228,7 +229,13 @@
 
 			<div class="flex flex-col justify-end gap-[10px] px-[2rem] md:flex-row">
 				<Button disabled={createAccountLoader} on:click={() => (open = false)}>Cancel</Button>
-				<Button disabled={createAccountLoader} type="submit">Register</Button>
+				<Button disabled={createAccountLoader} type="submit">
+					{#if createAccountLoader}
+						Creating... <Loader class="h-[14px] w-[14px] animate-spin" />
+					{:else}
+						Create
+					{/if}
+				</Button>
 			</div>
 		</form>
 	</AlertDialog.Content>

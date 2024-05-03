@@ -47,7 +47,7 @@ export const createAccountSchema = z.object({
     email: z.string().email({ message: "Email is required." }).max(30, { message: "Max character is 30 for email." }),
     password: z.string().min(6, { message: "Must enter a strong password." }).max(30, { message: "Max character is 30 for password." }),
     confirmPassword: z.string()
-}).superRefine(({ password, confirmPassword }, ctx) => {
+}).superRefine(({ password, confirmPassword, age }, ctx) => {
 
     if (password !== confirmPassword) {
 
@@ -57,6 +57,14 @@ export const createAccountSchema = z.object({
             path: ["confirmPassword"]
         });
 
+    };
+
+    if (Math.abs(Number(age)) < 18) {
+        ctx.addIssue({
+            code: "custom",
+            message: "You must be in legal age.",
+            path: ["birthDay"]
+        });
     }
 
 });
