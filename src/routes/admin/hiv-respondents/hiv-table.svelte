@@ -26,7 +26,7 @@
 		</Table.Header>
 		<Table.Body>
 			{#each respondents ?? [] as respondent, index}
-				<Table.Row>
+				<Table.Row class="truncate">
 					<Table.Cell>{respondent.user_email}</Table.Cell>
 					<Table.Cell>{respondent.user_fullname}</Table.Cell>
 					<Table.Cell>{respondent.user_birthday}</Table.Cell>
