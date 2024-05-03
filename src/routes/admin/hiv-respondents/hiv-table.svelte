@@ -39,7 +39,7 @@
 						>{respondent.hiv_results_tb ? `${respondent.hiv_results_tb.percentage} %` : 'N/A'}
 					</Table.Cell>
 					<Table.Cell class="flex items-center gap-[10px]">
-						<UpdateRespondent />
+						<UpdateRespondent {respondent} />
 						<DeleteRespondent {respondent} />
 					</Table.Cell>
 				</Table.Row>

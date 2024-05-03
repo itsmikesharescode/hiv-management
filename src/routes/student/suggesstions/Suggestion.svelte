@@ -7,8 +7,9 @@
 	import Typewriter, { cascade, concurrent, scramble } from 'svelte-typewriter';
 
 	let randomIndex = 0;
-	let loader = false;
-	const generateSuggestions = () => {
+	export let loader = false;
+
+	export const generateSuggestions = () => {
 		animateLoading();
 		let newIndex = 0;
 		do {
@@ -28,9 +29,13 @@
 		>More Suggestions <RefreshCw class={loader ? 'animate-spin' : ''} /></Button
 	>
 </div>
-<div class="grid grid-cols-1 gap-[10px] md:grid-cols-2 lg:grid-cols-3">
+
+<div
+	class="grid w-full grid-cols-1 gap-[10px] md:grid-cols-2 lg:grid-cols-3"
+	on:animationstart|self
+>
 	{#each suggestions[randomIndex] as suggestion (suggestion.id)}
-		<div class="grid" animate:flip={{ duration: 920 }}>
+		<div class="w-full md:grid" animate:flip={{ duration: 920 }}>
 			<Card.Root>
 				<Card.Header>
 					<Card.Title>{suggestion.title}</Card.Title>
