@@ -7,13 +7,16 @@
 	import Birthday from '../../(static)/Birthday.svelte';
 	import { calculateAge } from '$lib/helpers';
 	import { DateFormatter, getLocalTimeZone, type DateValue } from '@internationalized/date';
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import type { ResultModel } from '$lib/types';
+	import { toast } from 'svelte-sonner';
 
 	let open = false;
 
 	const df = new DateFormatter('en-US', {
 		dateStyle: 'long'
 	});
-	type createAccountVal = {
+	type CreateAccountVal = {
 		firstName: string[];
 		middleName: string[];
 		lastName: string[];
@@ -27,8 +30,39 @@
 	};
 
 	let createAccountLoader = false;
-	let formErrors: createAccountVal | null = null;
+	let formErrors: CreateAccountVal | null = null;
 	let birthDayVal: DateValue | undefined;
+
+	const createAccountActionNews: SubmitFunction = () => {
+		createAccountLoader = true;
+		return async ({ result, update }) => {
+			const {
+				status,
+				data: { msg, errors }
+			} = result as ResultModel<{ msg: string; errors: CreateAccountVal }>;
+
+			switch (status) {
+				case 200:
+					formErrors = null;
+					toast.success('Create Account', { description: msg });
+					createAccountLoader = false;
+					open = false;
+					break;
+
+				case 400:
+					formErrors = errors;
+					createAccountLoader = false;
+					break;
+
+				case 401:
+					formErrors = null;
+					toast.error('Create Account', { description: msg });
+					createAccountLoader = false;
+					break;
+			}
+			await update();
+		};
+	};
 </script>
 
 <Button on:click={() => (open = true)}>Create Respondent Account</Button>
@@ -42,7 +76,12 @@
 			</AlertDialog.Description>
 		</AlertDialog.Header>
 
-		<form method="post" action="?/registerAction" use:enhance class="flex flex-col gap-[20px]">
+		<form
+			method="post"
+			action="?/createAccountAction"
+			use:enhance={createAccountActionNews}
+			class="flex flex-col gap-[20px]"
+		>
 			<div class="grid max-h-[55dvh] grid-cols-1 gap-[20px] overflow-auto p-[2rem]">
 				<div class="flex w-full flex-col gap-1.5">
 					<Label for="firstName">First Name</Label>
