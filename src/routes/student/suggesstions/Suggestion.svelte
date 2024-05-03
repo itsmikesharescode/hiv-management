@@ -4,6 +4,7 @@
 	import { flip } from 'svelte/animate';
 	import { suggestions } from './generatedtext';
 	import { RefreshCw } from 'lucide-svelte';
+	import Typewriter, { cascade, concurrent, scramble } from 'svelte-typewriter';
 
 	let randomIndex = 0;
 	let loader = false;
@@ -35,9 +36,11 @@
 					<Card.Title>{suggestion.title}</Card.Title>
 				</Card.Header>
 				<Card.Content>
-					<p>
-						{suggestion.definition}
-					</p>
+					<Typewriter interval={0}>
+						<p>
+							{suggestion.definition}
+						</p>
+					</Typewriter>
 				</Card.Content>
 			</Card.Root>
 		</div>
