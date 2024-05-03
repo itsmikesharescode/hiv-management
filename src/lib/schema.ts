@@ -80,6 +80,7 @@ export const createAccountSchema = z.object({
 
 
 export const updateAccountSchema = z.object({
+    userId: z.string(),
     age: z.string(),
     firstName: z.string().min(1, { message: 'Enter a valid first name.' }).max(20, { message: "Max character is 20 for first name." }),
     middleName: z.string().min(1, { message: 'Enter a valid middle name.' }).max(20, { message: "Max character is 20 for middle name." }),
