@@ -39,7 +39,7 @@
 	};
 </script>
 
-<nav class=" flex items-center justify-between p-[1rem]">
+<nav class=" flex items-center justify-between border-b-[1px] p-[1rem]">
 	<h3 class="scroll-m-20 text-2xl font-semibold tracking-tight">HIV ADMS</h3>
 	<div class="flex items-center gap-[10px]">
 		{#if userState}

@@ -17,6 +17,8 @@ export const load: PageServerLoad = async ({ locals: { safeGetSession } }) => {
 
 export const actions: Actions = {
 
+
+
     loginAction: async ({ locals: { supabase }, request }) => {
         const formData = Object.fromEntries(await request.formData());
 

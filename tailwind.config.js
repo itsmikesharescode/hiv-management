@@ -14,6 +14,15 @@ const config = {
 			}
 		},
 		extend: {
+			animation: {
+				typing: 'typing 2s steps(22), blink .5s step-end infinite alternate',
+			},
+			keyframes: {
+				typing: {
+					'from': { width: '0%' },
+					'to': { width: '100%' },
+				}
+			},
 			colors: {
 				border: "hsl(var(--border) / <alpha-value>)",
 				input: "hsl(var(--input) / <alpha-value>)",
