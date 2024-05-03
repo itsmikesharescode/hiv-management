@@ -2,6 +2,7 @@ import { fail, redirect, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import type { PostgrestSingleResponse } from "@supabase/supabase-js";
 import type { ZodError } from "zod";
+import { createAccountSchema } from "$lib/schema";
 
 export const load: PageServerLoad = async ({ locals: { supabase, safeGetSession, supabaseAdmin } }) => {
     const { user } = await safeGetSession();
@@ -24,9 +25,25 @@ export const actions: Actions = {
 
     createAccountAction: async ({ locals: { supabase, supabaseAdmin }, request }) => {
         const formData = Object.fromEntries(await request.formData());
-        console.log('here');
-        try {
 
+        try {
+            const result = createAccountSchema.parse(formData);
+            const { data: { user }, error } = await supabaseAdmin.auth.admin.createUser({
+                email: result.email,
+                password: result.password,
+                email_confirm: true,
+                user_metadata: {
+                    fullName: `${result.lastName}, ${result.firstName} ${result.middleName}`,
+                    birthDay: result.birthDay,
+                    age: result.age,
+                    yearLvl: result.yearLvl,
+                    section: result.section,
+                    department: result.department,
+                }
+            });
+
+            if (error) return fail(401, { msg: error.message });
+            else if (user) return { msg: "Account Created" };
         } catch (error) {
             const zodError = error as ZodError;
             const { fieldErrors } = zodError.flatten();
