@@ -2,7 +2,7 @@ import { fail, redirect, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import type { PostgrestSingleResponse } from "@supabase/supabase-js";
 import type { ZodError } from "zod";
-import { createAccountSchema } from "$lib/schema";
+import { createAccountSchema, updateAccountSchema } from "$lib/schema";
 
 export const load: PageServerLoad = async ({ locals: { supabase, safeGetSession, supabaseAdmin } }) => {
     const { user } = await safeGetSession();
@@ -60,5 +60,34 @@ export const actions: Actions = {
 
         if (error) return fail(401, { msg: error.message });
         else return { msg: "Respondent Deleted Successfully." };
-    }
+    },
+
+    updateAccountAction: async ({ locals: { supabaseAdmin }, request }) => {
+        const formData = Object.fromEntries(await request.formData());
+
+        try {
+            const result = updateAccountSchema.parse(formData);
+
+            const { data: { user }, error } = await supabaseAdmin.auth.admin.updateUserById(result.userId, {
+                email: result.email,
+                password: result.password,
+                user_metadata: {
+                    fullName: `${result.lastName}, ${result.firstName} ${result.middleName}`,
+                    birthDay: result.birthDay,
+                    age: result.age,
+                    yearLvl: result.yearLvl,
+                    section: result.section,
+                    department: result.department,
+                }
+            });
+
+            if (error) return fail(401, { msg: error.message });
+            else if (user) return { msg: "Account Updated Successfully." };
+
+        } catch (error) {
+            const zodError = error as ZodError;
+            const { fieldErrors } = zodError.flatten();
+            return fail(400, { errors: fieldErrors })
+        }
+    },
 };

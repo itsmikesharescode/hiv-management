@@ -24,6 +24,7 @@
 				>
 					Thanks for participating. {$userState?.user_metadata.fullName.split(',')[0]}
 				</h3>
+
 				<Suggestion />
 			</div>
 		{:else}
