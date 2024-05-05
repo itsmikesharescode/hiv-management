@@ -102,15 +102,28 @@
 		<Card.Root>
 			<Card.Header class="relative flex items-center justify-center py-[5rem]">
 				{#if Math.round(calculatePercentage(dataOfYes, dataOfNo)) === 0}
-					<Confetti
-						xSpread={5}
-						y={[0, 2]}
-						delay={[500, 2000]}
-						infinite
-						duration={5000}
-						amount={1000}
-						fallDistance="100vh"
-					/>
+					<div
+						style="
+				position: fixed;
+				top: -50px;
+				left: 0;
+				height: 100vh;
+				width: 100vw;
+				display: flex;
+				justify-content: center;
+				overflow: hidden;
+				pointer-events: none;"
+					>
+						<Confetti
+							x={[-5, 5]}
+							y={[0, 0.1]}
+							delay={[500, 2000]}
+							infinite
+							duration={5000}
+							amount={400}
+							fallDistance="100vh"
+						/>
+					</div>
 				{/if}
 				<Card.Title class="text-center text-[1rem] sm:text-[2rem] md:text-[3rem]"
 					>{generateText(Math.round(calculatePercentage(dataOfYes, dataOfNo)))}</Card.Title
