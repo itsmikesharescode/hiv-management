@@ -189,6 +189,7 @@ const suggestion4 = [
     },
 ]
 
+
 export const suggestions = [
     suggestion1, suggestion2, suggestion3, suggestion4
 ]
